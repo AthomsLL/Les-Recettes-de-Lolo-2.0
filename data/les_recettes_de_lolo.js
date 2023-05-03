@@ -1,5 +1,5 @@
 // Recipes
-
+export default
 [
   {
     "id":"b948d7a1-f5ad-43d3-82ac-25a555d6b6e8",
