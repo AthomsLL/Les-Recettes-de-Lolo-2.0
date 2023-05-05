@@ -1,6 +1,6 @@
 <template>
   <div>
-    HOME PAGE
+    <p>HOME PAGE</p>
     <nuxt-img 
       provider="cloudinary"
       src="/Groupomania/attachments/krjljetfugczcpnqjljk.jpg"
@@ -14,5 +14,7 @@
 </script>
 
 <style scoped>
-
+p {
+  font-family: 'Libre Baskerville', serif;
+}
 </style>

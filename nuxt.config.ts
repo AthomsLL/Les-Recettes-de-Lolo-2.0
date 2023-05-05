@@ -7,6 +7,15 @@ export default defineNuxtConfig({
     "vuetify/styles/main.sass",
     "@mdi/font/css/materialdesignicons.css"
   ],
+  googleFonts: {
+    display: "swap",
+    families: {
+      Roboto: true,
+      Poppins: [100, 200, 300, 400, 500, 600, 700],
+      "Libre+Baskerville": [400, 700]
+    },
+    preconnect: true
+  },
   image: {
     cloudinary: {
       baseURL: 'https://res.cloudinary.com/athomsll/image/upload/'
@@ -16,6 +25,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/image-edge",
+    "@nuxtjs/google-fonts",
   ],
   pinia: {
     autoImports: [
