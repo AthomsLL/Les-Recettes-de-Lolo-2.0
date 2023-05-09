@@ -14,11 +14,11 @@ model User {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   email           String
   password        String
-  firstName       String
-  lastName        String
-  avatar          String?
-  avatarPublicId  String?
-  isAdmin         Boolean   @default(false)
+  name            String
+  username        String    @unique
+  avatar          String?   @default("")
+  avatarPublicId  String?   @default("")
+  isAdmin         Boolean?  @default(false)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   recipes         Recipe[]
