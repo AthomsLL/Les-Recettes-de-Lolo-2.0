@@ -30,7 +30,7 @@ model Recipe {
   title           String
   category        String 
   difficulty      String 
-  rating          Number?   @default(null)
+  rating          Int?      @default(0)
   usersLiked      String[]
   nbrPersons      String
   image           String
@@ -49,12 +49,12 @@ model Recipe {
 model Comment {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   content         String
-  rating          Number    @default(null)
+  rating          Int       @default(0)
   usersLiked      String[]
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  recipeId        String    @db.ObjectId
+  recipeId        String    @unique @db.ObjectId
   recipe          Recipe    @relation(fields: [recipeId], references: [id])
-  userId          String    @unique @db.ObjedtId
+  userId          String    @unique @db.ObjectId
   user            User      @relation(fields: [userId], references: [id])
 }
