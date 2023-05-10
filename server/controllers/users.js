@@ -11,3 +11,14 @@ export const createUser = (userData) => {
     data: finalUserData
   })
 }
+
+export const getUserByEmailOrUsername = (emailOrUsername) => {
+  return prisma.user.findFirst({
+    where: {
+      OR: [
+        { "email": emailOrUsername },
+        { "username": emailOrUsername }
+      ]
+    }
+  })
+}
