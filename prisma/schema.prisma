@@ -30,7 +30,7 @@ model Recipe {
   title           String
   category        String 
   difficulty      String 
-  rating          Int?      @default(0)
+  rating          Int      @default(0)
   usersLiked      String[]
   nbrPersons      String
   image           String
