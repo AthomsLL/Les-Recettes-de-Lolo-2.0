@@ -1,12 +1,14 @@
 import { sendError } from "h3"
 import { getUserByEmailOrUsername } from "~/server/controllers/users"
-import { createRefreshToken, sendRefreshToken } from "~/server/controllers/refreshTokens"
+import { createRefreshToken } from "~/server/controllers/refreshTokens"
 import bcrypt from "bcrypt"
-import { generateTokens } from "../../utils/jwt"
+import { generateTokens, sendRefreshToken } from "../../utils/jwt"
 import { userTransformer } from "../../transformers/user"
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
+
+  console.log(event.res);
 
   const { emailOrUsername, password } = body
 
