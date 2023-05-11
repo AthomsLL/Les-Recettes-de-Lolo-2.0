@@ -8,8 +8,6 @@ import { userTransformer } from "../../transformers/user"
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
-  console.log(event.res);
-
   const { emailOrUsername, password } = body
 
   if (!emailOrUsername || !password) {
