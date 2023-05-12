@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   if (!refreshToken) {
     return sendError(event, createError({
       statusCode: 401,
-      statusMessage: 'Refresh token est invalide !'
+      statusMessage: 'Invalid refresh token !'
     }))
   }
 
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   if (!rToken) {
     return sendError(event, createError({
       statusCode: 401,
-      statusMessage: 'Refresh token est invalide !'
+      statusMessage: 'Unknown refresh token !'
     }))
   }
 
@@ -37,11 +37,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     return sendError(event, createError({
       statusCode: 500,
-      statusMessage: 'Quelque chose s\'est mal déroulé !'
+      statusMessage: 'Something went wrong !'
     }))
-  }
-  
-  return {
-    "hello": token
   }
 })

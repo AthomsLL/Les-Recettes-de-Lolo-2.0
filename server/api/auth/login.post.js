@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   if (!emailOrUsername || !password) {
     return sendError(event, createError({
       statusCode: 400,
-      statusMessage: 'Paramètres de connexion invalides !'
+      statusMessage: 'Invalid parameters !'
     }))
   }
 
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
   if (!user) {
     return sendError(event, createError({
       statusCode: 404,
-      statusMessage: 'Email/Pseudo inconnu !'
+      statusMessage: 'Unknown email or username !'
     }))
   }
 
@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
   if (!doesThePasswordMatch) {
     return sendError(event, createError({
       statusCode: 400,
-      statusMessage: 'Email/Pseudo ou mot de passe invalides !'
+      statusMessage: 'Invalid email/username or password !'
     }))
   }
 

@@ -10,14 +10,14 @@ export default defineEventHandler(async (event) => {
   if (!email || !password || !repeatPassword || !name || !username) {
     return sendError(event, createError({
       statusCode: 400,
-      statusMessage: "Une des informations est manquante ou invalide !"
+      statusMessage: "Invalid parameters !"
     }))
   }
 
   if (password !== repeatPassword) {
     return sendError(event, createError({
       statusCode: 400,
-      statusMessage: "Les mots de passe ne correspondent pas !"
+      statusMessage: "Password does match !"
     }))
   }
 
