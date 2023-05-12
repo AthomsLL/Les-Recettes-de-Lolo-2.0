@@ -5,7 +5,7 @@ import { getUserById } from "../controllers/users"
 
 export default defineEventHandler(async (event) => {
   const endpoints = [
-    'api/auth/user'
+    '/api/auth/user'
   ]
 
   const isHandleByThisMiddleware = endpoints.some(endpoint => {
@@ -18,11 +18,9 @@ export default defineEventHandler(async (event) => {
     return
   }
 
-  const token = event.node.req.headers['cookie'].split('refresh_token=')[1]
+  const token = event.node.req.headers['authorization'].split(' ')[1]
 
   const decoded = decodeAccessToken(token)
-
-  console.log(decoded);
 
   if(!decoded) {
     return sendError(event, createError({

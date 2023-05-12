@@ -30,7 +30,6 @@ export const decodeAccessToken = (token) => {
   const config = useRuntimeConfig()
   
   try {
-    console.log(jwt.verify(token, config.jwtAccessSecret));
     return jwt.verify(token, config.jwtAccessSecret)
   } catch (error) {
     return null
