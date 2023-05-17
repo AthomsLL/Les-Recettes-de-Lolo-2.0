@@ -16,14 +16,14 @@ model User {
   password        String
   name            String
   username        String    @unique
-  avatar          String?   @default("")
-  avatarPublicId  String?   @default("")
   isAdmin         Boolean?  @default(false)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   recipes         Recipe[]
   comments        Comment[]
   refreshToken    RefreshToken[]
+  recipeFiles     RecipeFile[]
+  avatarFiles     AvatarFile[]
 }
 
 model RefreshToken {
@@ -31,8 +31,8 @@ model RefreshToken {
   token           String    @unique
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  userId          String    @db.ObjectId
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          String    @db.ObjectId
 }
 
 model Recipe {
@@ -43,17 +43,16 @@ model Recipe {
   rating          Int      @default(0)
   usersLiked      String[]
   nbrPersons      String
-  image           String
-  imagePublicId   String
   preptime        String
   cooktime        String
   ingredients     Json[]
   steps           Json[]
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  userId          String    @db.ObjectId
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          String    @db.ObjectId
   comments        Comment[]
+  recipeFiles     RecipeFile[]
 }
 
 model Comment {
@@ -63,8 +62,30 @@ model Comment {
   usersLiked      String[]
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  recipeId        String    @db.ObjectId
   recipe          Recipe    @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId          String    @db.ObjectId
+  recipeId        String    @db.ObjectId
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          String    @db.ObjectId
+}
+
+model RecipeFile {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  url               String
+  providerPublicId  String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId            String  @db.ObjectId  
+  recipe            Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  recipeId          String  @db.ObjectId
+}
+
+model AvatarFile {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  url               String
+  providerPublicId  String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId            String  @db.ObjectId
 }

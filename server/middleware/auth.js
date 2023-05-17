@@ -29,7 +29,6 @@ export default defineEventHandler(async (event) => {
     }))
   }
 
-
   try {
     const userId = decoded.userId
 
@@ -37,6 +36,6 @@ export default defineEventHandler(async (event) => {
 
     event.context.auth = { user }
   } catch (error) {
-    return error
+    return
   }
 })
