@@ -5,7 +5,8 @@ import { getUserById } from "../controllers/users"
 
 export default defineEventHandler(async (event) => {
   const endpoints = [
-    '/api/auth/user'
+    '/api/auth/user',
+    '/api/user/recipes'
   ]
 
   const isHandleByThisMiddleware = endpoints.some(endpoint => {
