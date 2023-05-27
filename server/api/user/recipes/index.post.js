@@ -1,4 +1,8 @@
 import formidable from 'formidable'
+import { createRecipe } from '../../../controllers/recipes'
+import { createRecipeFile } from '../../../controllers/mediaFiles'
+import { recipeTransformer } from "~/server/transformers/recipe"
+import { uploadToCloudinary } from '~/server/utils/cloudinary'
 
 export default defineEventHandler(async (event) => {
   const form = formidable({})
@@ -12,9 +16,7 @@ export default defineEventHandler(async (event) => {
     })
   })
 
-  
   const { fields, files } = response
-  console.log(fields);
   
   const userId = event.context?.auth?.user?.id
 
@@ -25,15 +27,33 @@ export default defineEventHandler(async (event) => {
     nbrPersons: fields.nbrPersons,
     preptime: fields.preptime,
     cooktime: fields.cooktime,
-    ingredients: fields.ingredients,
-    steps: fields.steps,
+    ingredients: JSON.parse(fields.ingredients),
+    steps: JSON.parse(fields.steps),
     userId: userId
   }
 
-  //createRecipe(recipeData)
+  const recipe = await createRecipe(recipeData)
 
+  const recipeFilePromises = Object.keys(files).map(async key => {
+    const config = useRuntimeConfig()
+
+    const file = files[key]
+    
+    const response = await uploadToCloudinary(file.filepath, config.cloudinaryUploadFolderRecipes)
+
+    console.log(response)
+
+    return createRecipeFile({
+      url: '',
+      providerPublicId: 'random_id',
+      userId: userId,
+      recipeId: recipe.id
+    })
+  })
+
+  await Promise.all(recipeFilePromises)
 
   return {
-    recipeData: recipeData
+    recipe: recipeTransformer(recipe)
   }
 })
