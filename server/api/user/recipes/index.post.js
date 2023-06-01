@@ -41,8 +41,6 @@ export default defineEventHandler(async (event) => {
     
     const response = await uploadToCloudinary(file.filepath, config.cloudinaryUploadFolderRecipes)
 
-    console.log(response)
-
     return createRecipeFile({
       url: '',
       providerPublicId: 'random_id',
